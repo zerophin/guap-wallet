@@ -2,7 +2,8 @@
   table-layout: auto;
   width: 100%;
   text-align: center;
-  background-color: white;
+  background: var(--theme-page-background);
+  color: var(--theme-page-text);
   border: 1px solid #b8b8b8;
   margin-top: 5%;
 }

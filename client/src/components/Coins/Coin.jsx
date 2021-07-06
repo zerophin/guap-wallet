@@ -18,12 +18,12 @@ export default function Coin() {
   const { id } = useParams();
   const fetchData = async () => {
     const data = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/${id}`
+      `https://api.coingecko.com/api/v3/coins/${id}`,
     );
     setCoinData(data.data);
 
     const graphData = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=cad&days=365&interval=daily`
+      `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=cad&days=30&interval=weekly`,
     );
     console.log(graphData.data.prices);
 
@@ -32,7 +32,7 @@ export default function Coin() {
     const arr = [];
     // console.log("OOOOOBJECT", Object.fromEntries(prices));
 
-    prices.forEach((price) => {
+    prices.forEach(price => {
       arr.push({ date: new Date(price[0]).getHours(), value: price[1] });
     });
 

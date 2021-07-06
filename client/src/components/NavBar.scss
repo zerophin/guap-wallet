@@ -4,11 +4,13 @@
   width: 100vw;
   min-height: 6vh;
   align-items: center;
-  background-color: #5664d2;
+
   position: fixed;
   z-index: 2;
   top: 0;
   left: 0;
+  background: var(--theme-page-background);
+  color: var(--theme-page-text);
 }
 
 .logo {

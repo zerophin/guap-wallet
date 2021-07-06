@@ -3,14 +3,17 @@
   position: fixed;
   width: 15%;
   margin-top: 6vh;
-  background-color: rgb(255, 255, 255);
   border: 1px solid #b8b8b8;
   top: 0;
   left: 0;
+  background: var(--theme-page-background);
+  color: var(--theme-page-text);
 }
 
 body {
-  background-color: #f0f1ef;
+  background-color: var(--theme-color);
+  background: var(--theme-page-background);
+  color: var(--theme-page-text);
 }
 
 .theme-toggle {

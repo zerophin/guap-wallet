@@ -1,14 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import "./SideBar.scss";
 import Switch from "react-switch";
 import MenuItemList from "./MenuItemList";
 
-const SideBar = (props) => {
+const SideBar = props => {
   const [toggle, setToggle] = useState(false);
 
-  const handleChange = (checked) => {
-    toggle ? setToggle(false) : setToggle(true);
+  const handleChange = () => {
+    props.theme === "light" ? setToggle(true) : setToggle(false);
   };
 
   return (
