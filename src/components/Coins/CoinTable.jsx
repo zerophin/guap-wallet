@@ -4,6 +4,9 @@ import "./CoinTable.scss";
 import { FaStar, FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { useHistory } from "react-router-dom";
+import DenomSelector from "../DenomSelector";
+
+import supportedCurrencies from "../../supportedCurrencies";
 
 export default function CoinTable({varBalance, setVarBalance}) {
   const CoinGeckoClient = new CoinGecko();
@@ -13,7 +16,6 @@ export default function CoinTable({varBalance, setVarBalance}) {
   const [searchId, setSearchId] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [allCoins, setAllCoins] = useState([]);
-  const [button, setButton] = useState(false);
   const [orderBy, setOrderBy] = useState("market_cap_desc");
 
   const formatter = new Intl.NumberFormat("en-US", {
@@ -43,25 +45,6 @@ export default function CoinTable({varBalance, setVarBalance}) {
       });
     getCoinData().then((res) => setCoins(res.data));
   }, [pageNumber, searchId, searchValue, orderBy, varBalance]);
-
-  const DenomSelector = () => {
-    return (
-      <select
-        value={varBalance}
-        onChange={(event) => {
-          setVarBalance(event.target.value);
-        }}
-        className="denom"
-      >
-        <option>cad</option>
-        <option>usd</option>
-        <option>eur</option>
-        <option>gbp</option>
-        <option>aud</option>
-        <option>chf</option>
-      </select>
-    );
-  };
 
   useEffect(() => {
     const coinData = async () =>
@@ -93,10 +76,8 @@ export default function CoinTable({varBalance, setVarBalance}) {
       ) {
         setSearchId(coin.id);
         setPageNumber(1);
-        setButton(true);
       } else if (shortSearch === "") {
         setSearchId("");
-        setButton(false);
       }
     });
   };
@@ -117,7 +98,7 @@ export default function CoinTable({varBalance, setVarBalance}) {
     <>
       <div className="top-section">
         <div className="search-section">
-          <DenomSelector />
+          <DenomSelector varBalance={varBalance} setVarBalance={setVarBalance} currencies={supportedCurrencies}/>
           <form>
             <input
               value={searchValue}
@@ -133,7 +114,7 @@ export default function CoinTable({varBalance, setVarBalance}) {
 
         <div className="arrow-buttons">
           <button
-            disabled={pageNumber === 1 ? true : false}
+            disabled={pageNumber === 1}
             onClick={() => setPageNumber(pageNumber - 1)}
             className="page-arrow"
           >
@@ -162,7 +143,7 @@ export default function CoinTable({varBalance, setVarBalance}) {
                 }}
               />
             </th>
-            <th></th>
+            <th />
             <th id="coin-name">Name</th>
             <th>
               Price
@@ -237,12 +218,12 @@ export default function CoinTable({varBalance, setVarBalance}) {
       </table>
       <div className="bottom-section">
         <div className="search-section">
-          <DenomSelector />
+          <DenomSelector varBalance={varBalance} setVarBalance={setVarBalance} currencies={supportedCurrencies}/>
         </div>
 
         <div className="arrow-buttons">
           <button
-            disabled={pageNumber === 1 ? true : false}
+            disabled={pageNumber === 1}
             onClick={() => setPageNumber(pageNumber - 1)}
             className="page-arrow"
           >

@@ -5,6 +5,9 @@ import { TiArrowUnsorted } from "react-icons/ti";
 import CoinGecko from "coingecko-api";
 import { useHistory } from "react-router-dom";
 import "./Coins/CoinTable.scss";
+import DenomSelector from "./DenomSelector";
+
+import supportedCurrencies from "../supportedCurrencies";
 
 export default function Watchlist({varBalance, setVarBalance}) {
   const CoinGeckoClient = new CoinGecko();
@@ -29,24 +32,6 @@ export default function Watchlist({varBalance, setVarBalance}) {
     style: "currency",
     currency: varBalance,
   });
-
-  const DenomSelector = () => {
-    return (
-      <select
-        value={varBalance}
-        onChange={(event) => {
-          setVarBalance(event.target.value);
-        }}
-      >
-        <option>cad</option>
-        <option>usd</option>
-        <option>eur</option>
-        <option>gbp</option>
-        <option>aud</option>
-        <option>chf</option>
-      </select>
-    );
-  };
 
   const isWatchlist = () => {
     if (watchlist.length === 0 || watchlist[0] === "") {
@@ -86,7 +71,7 @@ export default function Watchlist({varBalance, setVarBalance}) {
     <>
       <div className="top-section">
         <div>
-          <DenomSelector />
+          <DenomSelector varBalance={varBalance} setVarBalance={setVarBalance} currencies={supportedCurrencies}/>
         </div>
         <div className="arrow-buttons">
           <button
